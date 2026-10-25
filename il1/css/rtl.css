@@ -1,0 +1,33 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   RTL overrides for the Hebrew (il1) edition.
+
+   With dir="rtl" on <html>, flexbox and block flow mirror automatically.
+   This sheet only fixes the leftovers: legacy LTR-locked declarations in
+   the ported stylesheet, bidi isolation for mixed numeric/latin runs
+   (most are already wrapped in <bdi> in the markup), and logical
+   replacements for physical left/right offsets.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Legacy rules that hard-coded direction/alignment in the ported CSS */
+.elementor-element .elementor-text-editor,
+.elementor-widget-text-editor {
+  direction: rtl;
+}
+
+/* Arrows should point with reading flow (leftward in RTL) */
+.elementor-icon-list-icon svg,
+.angle-arrow {
+  transform: scaleX(-1);
+}
+
+/* Physical padding/margin flips that the ported CSS locked to left/right */
+.elementor-widget-button .elementor-button {
+  text-align: center;
+}
+
+/* Keep latin product name runs (e.g. "Wellaray Slim Coffee Booster") LTR
+   inside Hebrew sentences; bdi covers most, this is belt-and-braces for
+   any bare latin runs. */
+.bdi-ltr, bdi {
+  unicode-bidi: isolate;
+}
